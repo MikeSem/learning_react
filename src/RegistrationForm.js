@@ -3,18 +3,16 @@ import React, { Component } from 'react';
 import './RegistrationForm.css';
 
 class RegistrationForm extends Component {
+  submit(event) {
+    event.preventDefault();
+    console.log('submit', this.testInput.value );
+  }
   constructor(props) {
     super(props);
     this.state = {
       email: ''
     };
     this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log('Form is submitted. Email is', this.state.email);
   }
 
   handleEmailChange(event) {
@@ -24,15 +22,16 @@ class RegistrationForm extends Component {
 
   render() {
     return (
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <input
             type="text"
             placeholder="E-mail"
             value={this.state.email}
             onChange={this.handleEmailChange}
             className="emailField"
+            ref={(input) => this.testInput = input}
           />
-          <button className='submitBtn'>Save</button>
+          <button onClick={this.submit.bind(this)} className='submitBtn'>Save</button>
         </form>
     );
   }
